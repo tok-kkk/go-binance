@@ -272,7 +272,7 @@ type WithdrawAddressService struct {
 
 func (s *WithdrawAddressService) Do(ctx context.Context, opts ...RequestOption) ([]WithdrawAddress, error) {
 	r := &request{
-		method:   http.MethodPost,
+		method:   http.MethodGet,
 		endpoint: "/sapi/v1/capital/withdraw/address/list",
 		secType:  secTypeSigned,
 	}
