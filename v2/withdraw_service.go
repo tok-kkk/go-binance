@@ -254,3 +254,38 @@ type Withdraw struct {
 	TxKey           string `json:"txKey"`
 	CompleteTime    string `json:"completeTime"` // complete UTC time when user's asset is deduct from withdrawing, only if status =  6(success)
 }
+
+type WithdrawAddress struct {
+	Address     string `json:"address"`
+	AddressTag  string `json:"addressTag"`
+	Coin        string `json:"coin"`
+	Name        string `json:"name"`
+	Network     string `json:"network"`
+	Origin      string `json:"origin"`
+	OriginType  string `json:"originType"`
+	WhiteStatus bool   `json:"whiteStatus"`
+}
+
+type WithdrawAddressService struct {
+	c *Client
+}
+
+func (s *WithdrawAddressService) Do(ctx context.Context, opts ...RequestOption) ([]WithdrawAddress, error) {
+	r := &request{
+		method:   http.MethodPost,
+		endpoint: "/sapi/v1/capital/withdraw/address/list",
+		secType:  secTypeSigned,
+	}
+
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	addrs := []WithdrawAddress{}
+	if err := json.Unmarshal(data, &addrs); err != nil {
+		return nil, err
+	}
+
+	return addrs, nil
+}
