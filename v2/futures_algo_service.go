@@ -260,7 +260,7 @@ func (s *ListOpenFuturesAlgoOrdersService) Do(ctx context.Context, opts ...Reque
 }
 
 type FuturesAlgoOrder struct {
-	//策略订单ID
+	// 策略订单ID
 	AlgoId           int64                      `json:"algoId"`
 	Symbol           string                     `json:"symbol"`
 	Side             SideType                   `json:"side"`
