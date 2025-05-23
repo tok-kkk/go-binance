@@ -289,3 +289,32 @@ func (s *WithdrawAddressService) Do(ctx context.Context, opts ...RequestOption) 
 
 	return addrs, nil
 }
+
+type WithdrawQuota struct {
+	WithdrawQuota string `json:"wdQuota"`
+	Used          string `json:"usedWdQuota"`
+}
+
+type WithdrawQuotaService struct {
+	c *Client
+}
+
+func (s *WithdrawQuotaService) Do(ctx context.Context, opts ...RequestOption) (*WithdrawQuota, error) {
+	r := &request{
+		method:   http.MethodGet,
+		endpoint: "/sapi/v1/capital/withdraw/quota",
+		secType:  secTypeSigned,
+	}
+
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+
+	var quota WithdrawQuota
+	if err := json.Unmarshal(data, &quota); err != nil {
+		return nil, err
+	}
+
+	return &quota, nil
+}
