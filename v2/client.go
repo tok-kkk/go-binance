@@ -787,6 +787,11 @@ func (c *Client) NewWithdrawAddressService() *WithdrawAddressService {
 	return &WithdrawAddressService{c: c}
 }
 
+// NewWithdrawQuotaService init listing withdraw quota service
+func (c *Client) NewWithdrawQuotaService() *WithdrawQuotaService {
+	return &WithdrawQuotaService{c: c}
+}
+
 // NewStartUserStreamService init starting user stream service
 func (c *Client) NewStartUserStreamService() *StartUserStreamService {
 	return &StartUserStreamService{c: c}
